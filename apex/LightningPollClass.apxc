@@ -1,0 +1,43 @@
+public class LightningPollClass {
+
+    @AuraEnabled
+    public static List<LightningPoll__c> GetData(String PollId) {
+        return [SELECT Id, PollId__c, UserId__c,answer_1_1__c,answer_1_2__c,answer_1_3__c,
+                answer_1_4__c,answer_1_5__c FROM LightningPoll__c WHERE UserId__c=:UserInfo.getUserID() AND PollId__c=:PollId];
+    }
+    
+    @AuraEnabled
+    public static AggregateResult GetAvarage(String PollId) {
+        return [SELECT SUM(answer_1_1__c),SUM(answer_1_2__c),SUM(answer_1_3__c),
+                SUM(answer_1_4__c),SUM(answer_1_5__c) FROM LightningPoll__c WHERE PollId__c=:PollId];
+    }
+    
+    @AuraEnabled
+    public static String SaveData(String sendData) {
+        try {
+            LightningPoll__c[] records = (LightningPoll__c[])JSON.deserialize(sendData, List<LightningPoll__c>.class);
+            for( LightningPoll__c rec : records ){
+                rec.UserId__c = UserInfo.getUserID();
+            }
+            upsert records;
+        } catch (DmlException e) {
+            return 'Error';
+        }
+        return 'Success';
+    }
+    
+    @AuraEnabled
+    public static String SendEmailNow(String recipient, String title, String content) {
+        Messaging.reserveSingleEmailCapacity(1);
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        String[] toAddresses = new String[] { recipient };
+        mail.setToAddresses(toAddresses);
+        mail.setSenderDisplayName('Lightning Poll Support');
+        mail.setSubject(title);
+        mail.setBccSender(false);
+        mail.setUseSignature(false);
+        mail.setHtmlBody(content);
+        Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
+        return 'Sent';
+    }
+}

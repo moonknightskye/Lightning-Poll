@@ -1,0 +1,16 @@
+<design:component label="Lightning Poll">
+    <design:attribute name="PollId" label="Poll ID" default="0" description="Unique identifier for each poll questions" required="true"/>
+    <design:attribute name="question_1_selection" label="Question Type" datasource="Star Rating, Radio Button, Checkbox, Image, Multiple Image Selection" default="Star Rating" />
+    <design:attribute name="question_1_text" label="Poll Question" default="How would you rate this App?"/>
+    <design:attribute name="choice_1_1" label="Choice #1" default="Bad" description="In case of image type, provide the URL of the image"/>
+    <design:attribute name="choice_1_2" label="Choice #2" default="Fair" description="In case of image type, provide the URL of the image"/>
+    <design:attribute name="choice_1_3" label="Choice #3" default="Good" description="In case of image type, provide the URL of the image"/>
+    <design:attribute name="choice_1_4" label="Choice #4" default="Very Good" description="In case of image type, provide the URL of the image"/>
+    <design:attribute name="choice_1_5" label="Choice #5" default="Excellent" description="In case of image type, provide the URL of the image"/>
+    <design:attribute name="question_1_validUntil" label="Valid until (MM/DD/YYYY HH:MM:SS)" description="Display the poll until the specified date/time"/>
+    <design:attribute name="question_1_hideTakenPoll" label="Hide Taken Poll" default="false" description="If the user already taken the poll, hide the component on the next page access."/>
+    <design:attribute name="question_1_showThankYou" label="Hide Poll Result and show Thank You Page" default="false" description="Upon submit, the user will instead see Thank You page rather than poll result"/>
+    <design:attribute name="question_1_thankYouMessage" label="Customized Thank You Message" required="true" default="Thank You!"  description="Displays this message if you choose to hide the poll result after voting"/>
+    <design:attribute name="emailRecipient" label="Send To" description="Sends poll result to specified e-mail address"/>
+    <design:attribute name="width" label="Width (% or px)" default="100%" description="Width of the component"/>
+</design:component>

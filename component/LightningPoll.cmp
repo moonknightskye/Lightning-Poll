@@ -1,0 +1,106 @@
+<aura:component controller="LightningPollClass"  implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <ltng:require scripts="/resource/lightningpollresource/lightningpolllogic.js?v=2, /resource/lightningpollresource/utility.js?v=2" afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+    
+    <!--
+    <ltng:require scripts="/resource/lightningpolllogic?v=5, /resource/utility" afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+	-->	
+
+    <aura:attribute name="id"
+								type="String"
+                    			default=""/>
+    <aura:attribute name="PollId"
+								type="String"
+                    			default="0"/>
+    <aura:attribute name="width"
+								type="String"
+                    			default="100%"/>
+    <aura:attribute name="emailRecipient"
+								type="String"
+                    			default=""/>
+    <aura:attribute name="question_1_multiple"
+								type="Boolean"
+                    			default="false"/>
+    <aura:attribute name="question_1_showThankYou"
+								type="Boolean"
+                    			default="false"/>
+    <aura:attribute name="question_1_hideTakenPoll"
+								type="boolean"
+                    			default="false"/>
+    <aura:attribute name="question_1_validUntil"
+								type="String"
+                    			default=""/>
+    
+    <aura:attribute name="question_1_selection"
+								type="String"
+                    			default="Star Rating"/>
+    <aura:attribute name="question_1_type"
+								type="String"
+                    			default="star"/>
+    
+    <aura:attribute name="question_1_text"
+								type="String"
+                    			default="How would you rate this App?"/>
+    <aura:attribute name="choice_1_1"
+								type="String"
+                    			default="Bad"/>
+    <aura:attribute name="choice_1_2"
+								type="String"
+                    			default="Fair"/>
+    <aura:attribute name="choice_1_3"
+								type="String"
+                    			default="Good"/>
+    <aura:attribute name="choice_1_4"
+								type="String"
+                    			default="Very Good"/>
+    <aura:attribute name="choice_1_5"
+								type="String"
+                    			default="Excellent"/>
+    
+    <aura:attribute name="question_1_multiple_class"
+								type="String"
+                    			default=""/>
+     <aura:attribute name="question_1_thankYouMessage"
+								type="String"
+                    			default="Thank You!"/>
+    
+    <aura:attribute name="question_1_isTaken"
+								type="Boolean"
+                    			default="false"/>
+    <aura:attribute name="question_1_taken_class"
+								type="String"
+                    			default=""/>
+    
+    <section id="{! 'lightning-poll' + v.id}" class="{! 'preload ' + v.question_1_multiple_class + ' ' + v.question_1_taken_class}">
+        <div class="rotating panel">
+          <div class="front">
+                <dl class="qBody">
+                    <dt class="qQuestion">{!v.question_1_text}</dt>
+                    <dd class="{! 'qAnswer ' + v.question_1_type}">
+                    </dd>
+                </dl>
+                <div class="button button_vote disable">Send</div>
+                <div style="display: none;">
+                    <ui:button label="" class="sendEmail" press="{!c.sendEmail}" />
+                    <ui:button label="" class="sendAnswer" press="{!c.sendAnswer}" />
+                </div>
+          </div>
+            
+          <div class="back" data-thanks="{!v.question_1_thankYouMessage}" >
+               <dl class="qBody">
+                    <dt class="qQuestion">{!v.question_1_text}</dt>
+                    <dd class="{! 'qAnswer ' + v.question_1_type}">
+						<dl>
+                            <dt class="selected">
+                            </dt>
+                            <dd class="disselected">
+                            </dd>
+                        </dl>
+                     </dd>
+                </dl>
+          </div>
+        </div>
+        
+     </section>
+</aura:component>
